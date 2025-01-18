@@ -12,4 +12,7 @@ pip install -r /path/to/requirements.txt
 
 ## Use
 
-By default, running will go into an endless loop of a CLI for a prompt for Llama3 after starting.
+By default, running will go into an endless loop of a CLI for a prompt for Llama3.2 after starting.
+
+1) To change the model you're using, simply run another model in Ollama and change the LLAMA_MODEL variable.
+2) To add new tools, use the same format as roll_dice and then add the function to tools. (make sure to add it to the system prompt)
