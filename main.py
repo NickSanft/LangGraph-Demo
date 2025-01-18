@@ -26,23 +26,23 @@ def roll_dice(num_dice: int, num_sides: int):
 
 
 # Function to interact with the chatbot and ask questions
-def ask_stuff(base_prompt: str, thread_id: str) -> str:
+def ask_stuff(user_prompt: str, thread_id: str) -> str:
     """
     Sends a prompt to the chatbot and gets a response.
 
     Args:
-        base_prompt (str): The user's input to ask the chatbot.
+        user_prompt (str): The user's input to ask the chatbot.
         thread_id (str): A unique identifier for the conversation thread.
 
     Returns:
         str: The chatbot's response.
     """
-    print(f"Role description: {role_description}")
-    print(f"Prompt to ask: {base_prompt}")
+    print(f"System prompt: {system_prompt}")
+    print(f"Prompt to ask: {user_prompt}")
 
     # Prepare configuration and inputs for the model
     config = {"configurable": {"thread_id": thread_id}}
-    inputs = {"messages": [("system", role_description), ("user", base_prompt)]}
+    inputs = {"messages": [("system", system_prompt), ("user", user_prompt)]}
 
     # Get response from the chatbot model
     ollama_response = print_stream(graph.stream(inputs, config=config, stream_mode="values"))
@@ -74,11 +74,11 @@ def print_stream(stream):
 
 # Configuration settings
 LLAMA_MODEL = "llama3.2"
-role_description = (
-    "You are a helpful chatbot. "
-    "Here are the tools available to you, do not call the tools unless you need to. "
-    "roll_dice: used to roll different types of dice."
-)
+system_prompt = """
+    You are a helpful chatbot.
+    Here are the tools available to you, do not call the tools unless you need to.
+    roll_dice: used to roll different types of dice.
+"""
 
 # Initialize memory and tools
 memory = MemorySaver()
